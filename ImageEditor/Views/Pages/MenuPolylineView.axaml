@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="450"
+             x:Class="ImageEditor.Views.Pages.MenuPolylineView">
+	<UserControl.Styles>
+		<Style Selector="ComboBox">
+			<Setter Property="Margin" Value="10"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="TextBox">
+			<Setter Property="Margin" Value="10"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="TextBlock">
+			<Setter Property="Margin" Value="10"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+		</Style>
+		<Style Selector="Rectangle">
+			<Setter Property="Width" Value="200"/>
+			<Setter Property="Height" Value="13"/>
+		</Style>
+	</UserControl.Styles>
+
+	<Grid RowDefinitions="30, 30, 50, 30" ColumnDefinitions="*, 1.5*">
+		<TextBlock Grid.Row="0" Grid.Column="0" Text="Имя:"/>
+		<TextBox Name="textBoxName" Grid.Row="0" Grid.Column="1" Text=""/>
+		<TextBlock Grid.Row="1" Grid.Column="0" Text="Точки:"/>
+		<TextBox Name="textBoxPoints" Grid.Row="1" Grid.Column="1" Text=""/>
+		<TextBlock Grid.Row="2" Grid.Column="0" Text="Цвет линии:"/>
+		<ComboBox Name="comboBoxColor" Grid.Row="2" Grid.Column="1" SelectedIndex="0">
+			<Rectangle Fill="Black"/>
+			<Rectangle Fill="Red"/>
+			<Rectangle Fill="Blue"/>
+			<Rectangle Fill="Yellow"/>
+			<Rectangle Fill="Green"/>
+			<Rectangle Fill="Chartreuse"/>
+			<Rectangle Fill="Magenta"/>
+			<Rectangle Fill="Firebrick"/>
+		</ComboBox>
+		<TextBlock Grid.Row="3" Grid.Column="0" Text="Толщина линии:"/>
+		<NumericUpDown Name="numericUpDownStroke" Grid.Row="3" Grid.Column="1" Minimum="1" Value="1" Width="218" Height="10"/>
+	</Grid>
+</UserControl>
