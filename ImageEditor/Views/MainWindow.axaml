@@ -22,7 +22,6 @@
 						<MenuItem Header="Экспортировать в XML"/>
 					</MenuItem>
 					<MenuItem Name="menuImport" Header="Импортировать">
-						<MenuItem Header="Импортировать в PNG"/>
 						<MenuItem Header="Импортировать в JSON"/>
 						<MenuItem Header="Импортировать в XML"/>
 					</MenuItem>
@@ -54,7 +53,7 @@
 				</Canvas>
 			</Border>
 			<Border Grid.Column="2" BorderBrush="Black" BorderThickness="2">
-				<ListBox Name="listBoxShapes" Items="{Binding FigureList}">
+				<ListBox Name="listBoxShapes" Items="{Binding FigureList}" SelectedIndex="{Binding FigureListIndex}">
 					<ListBox.ItemTemplate>
 						<DataTemplate>
 							<Grid ColumnDefinitions="*, 48">

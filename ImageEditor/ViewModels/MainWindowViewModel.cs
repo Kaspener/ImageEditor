@@ -14,6 +14,7 @@ namespace ImageEditor.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private int figureIndex;
+        private int figureListIndex;
         private object[] figureViews;
         private object content;
         private ObservableCollection<Figures> figureList;
@@ -30,7 +31,9 @@ namespace ImageEditor.ViewModels
             FigureIndex = 0;
             FigureList = new ObservableCollection<Figures>();
             FigureList.Add(new Line { Name = "Line", StartPoint = "30, 40", EndPoint = "30, 115", ColorLine="Black", ThicknessLine=2});
+            FigureListIndex = -1;
             ClearParam = ReactiveCommand.Create(() =>  {
+                FigureListIndex = -1;
                 if (figureViews[figureIndex] is MenuLineViewModel) figureViews[figureIndex] = new MenuLineViewModel();
                 if (figureViews[figureIndex] is MenuPolylineViewModel) figureViews[figureIndex] = new MenuPolylineViewModel();
                 if (figureViews[figureIndex] is MenuPolygonViewModel) figureViews[figureIndex] = new MenuPolygonViewModel();
@@ -54,6 +57,11 @@ namespace ImageEditor.ViewModels
                 this.RaiseAndSetIfChanged(ref figureIndex, value);
                 Content = figureViews[figureIndex];
             }
+        }
+        public int FigureListIndex
+        {
+            get => figureListIndex;
+            set => this.RaiseAndSetIfChanged(ref figureListIndex, value);
         }
 
         public ObservableCollection<Figures> FigureList
