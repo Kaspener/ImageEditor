@@ -1,13 +1,12 @@
-using DynamicData;
+using Avalonia.Controls.Shapes;
+using Avalonia.Media;
 using ImageEditor.Models;
 using ImageEditor.ViewModels.Pages;
 using ReactiveUI;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.IO;
 using System.Reactive;
-using System.Text;
+using System.Text.Json;
 
 namespace ImageEditor.ViewModels
 {
@@ -18,6 +17,7 @@ namespace ImageEditor.ViewModels
         private object[] figureViews;
         private object content;
         private ObservableCollection<Figures> figureList;
+        private ObservableCollection<Shape> shapes;
 
         public MainWindowViewModel()
         {
@@ -30,7 +30,11 @@ namespace ImageEditor.ViewModels
             figureViews[5] = new MenuPathViewModel();
             FigureIndex = 0;
             FigureList = new ObservableCollection<Figures>();
-            FigureList.Add(new Line { Name = "Line", StartPoint = "30, 40", EndPoint = "30, 115", ColorLine="Black", ThicknessLine=2});
+            Shapes = new ObservableCollection<Shape>();
+            Shapes.Add(new Line { StartPoint = new Avalonia.Point(30, 30), EndPoint = new Avalonia.Point(50, 50), Stroke = new SolidColorBrush(Colors.Red), StrokeThickness = 1 });
+            Shapes.Add(new Ellipse {Width = 50, Height = 60, Fill = new SolidColorBrush(Colors.Red), Margin = new Avalonia.Thickness(50, 0, 0, 0) });
+            FigureList.Add(new LineElement { Name = "srt", EndPoint = "30, 30", StartPoint = "30, 30", StrokeNum = 1, StrokeThickness = 1}) ;
+            ElementToShape(FigureList[0]);
             FigureListIndex = -1;
             ClearParam = ReactiveCommand.Create(() =>  {
                 FigureListIndex = -1;
@@ -42,6 +46,12 @@ namespace ImageEditor.ViewModels
                 if (figureViews[figureIndex] is MenuPathViewModel) figureViews[figureIndex] = new MenuPathViewModel();
                 FigureIndex = figureIndex;
             });
+        }
+
+        public Shape ElementToShape(Figures obj)
+        {
+            if (obj is LineElement) return new Line {Name = obj.Name };
+            return null;
         }
 
         public object Content
@@ -68,6 +78,12 @@ namespace ImageEditor.ViewModels
         {
             get => figureList;
             set => this.RaiseAndSetIfChanged(ref figureList, value);
+        }
+
+        public ObservableCollection<Shape> Shapes
+        {
+            get => shapes;
+            set => this.RaiseAndSetIfChanged(ref shapes, value);
         }
 
         public ReactiveCommand<Unit, Unit> ClearParam { get; }

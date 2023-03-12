@@ -48,9 +48,13 @@
 				</Grid>
 			</Border>
 			<Border Grid.Column="1" BorderBrush="Black" BorderThickness="2">
-				<Canvas Name="canvas" Width="{Binding $parent[Border].Width}" Height="{Binding $parent[Border].Height}">
-					
-				</Canvas>
+				<ItemsControl Items="{Binding Shapes}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<Canvas Name="canvas" Width="{Binding $parent[Border].Width}" Height="{Binding $parent[Border].Height}"/>
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+				</ItemsControl>
 			</Border>
 			<Border Grid.Column="2" BorderBrush="Black" BorderThickness="2">
 				<ListBox Name="listBoxShapes" Items="{Binding FigureList}" SelectedIndex="{Binding FigureListIndex}">

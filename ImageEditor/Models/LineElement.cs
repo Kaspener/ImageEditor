@@ -3,38 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Markup;
+using System.Xml.Serialization;
 
 namespace ImageEditor.Models
 {
-    public class Line : Figures
+    public class LineElement : Figures
     {
         private string startPoint;
         private string endPoint;
-        private string colorLine;
-        private int thicknessLine;
+        private int strokeNum;
+        private int strokeThickness;
+
 
         public string StartPoint
         {
             get => startPoint;
             set => startPoint = value;
         }
-
         public string EndPoint
         {
             get => endPoint;
             set => endPoint = value;
         }
-
-        public string ColorLine
+        public int StrokeNum
         {
-            get => colorLine;
-            set => colorLine = value;
+            get => strokeNum;
+            set => strokeNum = value;
         }
-        public int ThicknessLine
+        public int StrokeThickness
         {
-            get => thicknessLine;
-            set => thicknessLine = value;
+            get => strokeThickness;
+            set => strokeThickness = value;
         }
     }
 }
