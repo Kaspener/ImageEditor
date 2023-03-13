@@ -2,11 +2,14 @@ using Avalonia.Controls.Shapes;
 using Avalonia.Media;
 using ImageEditor.Models;
 using ImageEditor.ViewModels.Pages;
+using Newtonsoft.Json;
 using ReactiveUI;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.IO;
 using System.Reactive;
-using System.Text.Json;
 
 namespace ImageEditor.ViewModels
 {
@@ -31,10 +34,11 @@ namespace ImageEditor.ViewModels
             FigureIndex = 0;
             FigureList = new ObservableCollection<Figures>();
             Shapes = new ObservableCollection<Shape>();
-            Shapes.Add(new Line { StartPoint = new Avalonia.Point(30, 30), EndPoint = new Avalonia.Point(50, 50), Stroke = new SolidColorBrush(Colors.Red), StrokeThickness = 1 });
+            Shapes.Add(new Line { StartPoint = new Avalonia.Point(30, 30), EndPoint = new Avalonia.Point(3000, 300), Stroke = Converters.StringToBrush("Red"), StrokeThickness = 1 });
             Shapes.Add(new Ellipse {Width = 50, Height = 60, Fill = new SolidColorBrush(Colors.Red), Margin = new Avalonia.Thickness(50, 0, 0, 0) });
-            FigureList.Add(new LineElement { Name = "srt", EndPoint = "30, 30", StartPoint = "30, 30", StrokeNum = 1, StrokeThickness = 1}) ;
-            ElementToShape(FigureList[0]);
+            FigureList.Add(new LineElement { Name = "srt", EndPoint = "30, 30", StartPoint = "30, 30", StrokeColor = "Red", StrokeThickness = 1}) ;
+            FigureList.Add(new PolylineElement { Name = "dfgd", Points = "234, 234, 234, 234", StrokeColor = "Black", StrokeThickness = 6 });
+            JsonSerializer<ObservableCollection<Figures>>.Save("data.txt", FigureList);
             FigureListIndex = -1;
             ClearParam = ReactiveCommand.Create(() =>  {
                 FigureListIndex = -1;

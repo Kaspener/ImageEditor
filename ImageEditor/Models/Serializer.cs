@@ -2,6 +2,8 @@
 using System.Xml.Serialization;
 using System;
 using ImageEditor.Models;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 public static class Serializer<T>
 {
@@ -28,5 +30,29 @@ public static class Serializer<T>
         }
 
         return retVal;
+    }
+}
+
+public static class JsonSerializer<T> 
+{
+    public static void Save(string path, T data)
+    {
+        JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented };
+        string Serialized = JsonConvert.SerializeObject(data, settings);
+        using (StreamWriter writer = new StreamWriter(path, false))
+        {
+            writer.WriteLine(Serialized);
+        }
+    }
+
+    public static T Load(string path)
+    {
+        JsonSerializerSettings settings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, Formatting = Formatting.Indented };
+        string Serialized;
+        using (StreamReader reader = new StreamReader(path))
+        {
+            Serialized = reader.ReadToEnd();
+        }
+        return JsonConvert.DeserializeObject<T>(Serialized, settings);
     }
 }

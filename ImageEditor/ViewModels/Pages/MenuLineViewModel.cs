@@ -1,9 +1,14 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Media;
+using ReactiveUI;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImageEditor.Models;
+using Avalonia.Controls.Shapes;
 
 namespace ImageEditor.ViewModels.Pages
 {
@@ -12,7 +17,8 @@ namespace ImageEditor.ViewModels.Pages
         private string name;
         private string startPoint;
         private string endPoint;
-        private int colorNum;
+        private int itemNum;
+        private ObservableCollection<Rectangle> colors;
         private int thicknessLine;
 
         public MenuLineViewModel()
@@ -20,8 +26,14 @@ namespace ImageEditor.ViewModels.Pages
             Name = "";
             StartPoint = "";
             EndPoint = "";
-            ColorNum = 0;
+            itemNum = 0;
             ThicknessLine = 1;
+            Colors = new ObservableCollection<Rectangle>();
+            var brushes = typeof(Brushes).GetProperties().Select(brush => brush.GetValue(brush));
+            foreach(object? el in brushes)
+            {
+                Colors.Add(new Rectangle { Fill = Converters.StringToBrush(el.ToString()) });
+            }
         }
 
         public string StartPoint
@@ -35,12 +47,6 @@ namespace ImageEditor.ViewModels.Pages
             get => endPoint;
             set => this.RaiseAndSetIfChanged(ref endPoint, value);
         }
-
-        public int ColorNum
-        {
-            get => colorNum;
-            set => this.RaiseAndSetIfChanged(ref colorNum, value);
-        }
         public int ThicknessLine
         {
             get => thicknessLine;
@@ -50,6 +56,17 @@ namespace ImageEditor.ViewModels.Pages
         {
             get => name;
             set => this.RaiseAndSetIfChanged(ref name, value);
+        }
+        public int ItemNum
+        {
+            get => itemNum;
+            set => this.RaiseAndSetIfChanged(ref itemNum, value);
+        }
+
+        public ObservableCollection<Rectangle> Colors
+        {
+            get => colors;
+            set => this.RaiseAndSetIfChanged(ref colors, value);
         }
     }
 }

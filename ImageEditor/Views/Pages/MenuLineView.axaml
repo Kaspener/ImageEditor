@@ -33,17 +33,8 @@
 		<TextBlock Grid.Row="2" Grid.Column="0" Text="Конечная точка:"/>
 		<TextBox Name="textBoxEnd" Grid.Row="2" Grid.Column="1" Text="{Binding EndPoint}"/>
 		<TextBlock Grid.Row="3" Grid.Column="0" Text="Цвет линии:"/>
-		<ComboBox Name="comboBoxColor" Grid.Row="3" Grid.Column="1" SelectedIndex="{Binding ColorNum}">
-			<Rectangle Fill="Black"/>
-			<Rectangle Fill="Red"/>
-			<Rectangle Fill="Blue"/>
-			<Rectangle Fill="Yellow"/>
-			<Rectangle Fill="Green"/>
-			<Rectangle Fill="Chartreuse"/>
-			<Rectangle Fill="Magenta"/>
-			<Rectangle Fill="Firebrick"/>
-		</ComboBox>
+		<ComboBox Grid.Row="3" Grid.Column="1" Name="comboBoxColor" Width="240" Items="{Binding Colors}" SelectedIndex="{Binding ItemNum}"/>
 		<TextBlock Grid.Row="4" Grid.Column="0" Text="Толщина линии:"/>
-		<NumericUpDown Name="numericUpDownStroke" Grid.Row="4" Grid.Column="1" Minimum="1" Value="{Binding ThicknessLine}" Width="218" Height="10"/>
+		<NumericUpDown Name="numericUpDownStroke" Grid.Row="4" Grid.Column="1" Minimum="1" Value="{Binding ThicknessLine}" Width="240" Height="10"/>
 	</Grid>
 </UserControl>

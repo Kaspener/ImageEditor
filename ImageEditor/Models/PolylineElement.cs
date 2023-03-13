@@ -9,7 +9,7 @@ namespace ImageEditor.Models
     public class PolylineElement : Figures
     {
         private string points;
-        private int strokeNum;
+        private string strokeColor;
         private int strokeThickness;
 
 
@@ -18,10 +18,10 @@ namespace ImageEditor.Models
             get => points;
             set => points = value;
         }
-        public int StrokeNum
+        public string StrokeColor
         {
-            get => strokeNum;
-            set => strokeNum = value;
+            get => strokeColor;
+            set => strokeColor = value;
         }
         public int StrokeThickness
         {
