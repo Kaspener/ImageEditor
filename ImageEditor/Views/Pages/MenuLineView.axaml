@@ -23,6 +23,10 @@
 			<Setter Property="Width" Value="200"/>
 			<Setter Property="Height" Value="13"/>
 		</Style>
+		<Style Selector="Rectangle.CRectangle">
+			<Setter Property="Width" Value="200"/>
+			<Setter Property="Height" Value="13"/>
+		</Style>
 	</UserControl.Styles>
 	
 	<Grid RowDefinitions="30, 30, 30, 50, 30" ColumnDefinitions="*, 1.5*">
@@ -33,8 +37,14 @@
 		<TextBlock Grid.Row="2" Grid.Column="0" Text="Конечная точка:"/>
 		<TextBox Name="textBoxEnd" Grid.Row="2" Grid.Column="1" Text="{Binding EndPoint}"/>
 		<TextBlock Grid.Row="3" Grid.Column="0" Text="Цвет линии:"/>
-		<ComboBox Grid.Row="3" Grid.Column="1" Name="comboBoxColor" Width="240" Items="{Binding Colors}" SelectedIndex="{Binding ItemNum}"/>
+		<ComboBox Grid.Row="3" Grid.Column="1" Name="comboBoxColor" Items="{Binding Colors}" SelectedIndex="{Binding ItemNum}">
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<Rectangle Classes="CRectangle" Fill="{Binding}"/>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
+		</ComboBox>
 		<TextBlock Grid.Row="4" Grid.Column="0" Text="Толщина линии:"/>
-		<NumericUpDown Name="numericUpDownStroke" Grid.Row="4" Grid.Column="1" Minimum="1" Value="{Binding ThicknessLine}" Width="240" Height="10"/>
+		<NumericUpDown Name="numericUpDownStroke" Grid.Row="4" Grid.Column="1" Minimum="1" Value="{Binding ThicknessLine}" Width="220" Height="10"/>
 	</Grid>
 </UserControl>

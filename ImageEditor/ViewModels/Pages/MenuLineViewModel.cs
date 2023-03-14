@@ -18,7 +18,7 @@ namespace ImageEditor.ViewModels.Pages
         private string startPoint;
         private string endPoint;
         private int itemNum;
-        private ObservableCollection<Rectangle> colors;
+        private ObservableCollection<ISolidColorBrush> colors;
         private int thicknessLine;
 
         public MenuLineViewModel()
@@ -28,12 +28,8 @@ namespace ImageEditor.ViewModels.Pages
             EndPoint = "";
             itemNum = 0;
             ThicknessLine = 1;
-            Colors = new ObservableCollection<Rectangle>();
-            var brushes = typeof(Brushes).GetProperties().Select(brush => brush.GetValue(brush));
-            foreach(object? el in brushes)
-            {
-                Colors.Add(new Rectangle { Fill = Converters.StringToBrush(el.ToString()) });
-            }
+            var brushes = typeof(Brushes).GetProperties().Select(brush => (ISolidColorBrush)brush.GetValue(brush));
+            Colors = new ObservableCollection<ISolidColorBrush>(brushes.ToList());
         }
 
         public string StartPoint
@@ -63,7 +59,7 @@ namespace ImageEditor.ViewModels.Pages
             set => this.RaiseAndSetIfChanged(ref itemNum, value);
         }
 
-        public ObservableCollection<Rectangle> Colors
+        public ObservableCollection<ISolidColorBrush> Colors
         {
             get => colors;
             set => this.RaiseAndSetIfChanged(ref colors, value);

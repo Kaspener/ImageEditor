@@ -18,12 +18,12 @@
 				<Menu DockPanel.Dock="Top">
 					<MenuItem Name="menuExport" Header="Экспортировать">
 						<MenuItem Header="Экспортировать в PNG"/>
-						<MenuItem Header="Экспортировать в JSON"/>
-						<MenuItem Header="Экспортировать в XML"/>
+						<MenuItem Header="Экспортировать в JSON" Click="SaveFileDialogMenuJsonClick"/>
+						<MenuItem Header="Экспортировать в XML" Click="SaveFileDialogMenuXmlClick"/>
 					</MenuItem>
 					<MenuItem Name="menuImport" Header="Импортировать">
-						<MenuItem Header="Импортировать в JSON"/>
-						<MenuItem Header="Импортировать в XML"/>
+						<MenuItem Header="Импортировать в JSON" Click="OpenFileDialogMenuJsonClick"/>
+						<MenuItem Header="Импортировать в XML" Click="OpenFileDialogMenuXmlClick"/>
 					</MenuItem>
 				</Menu>
 			</DockPanel>
@@ -40,7 +40,7 @@
 					</ComboBox>
 					<ContentControl Grid.Row="1" Content="{Binding Content}"/>
 					<Grid Grid.Row="2" ColumnDefinitions="*, *">
-						<Button Name="buttonAdd" Grid.Column="0" Content="Добавить" HorizontalAlignment="Stretch" Click="AddButtonClick"
+						<Button Name="buttonAdd" Grid.Column="0" Content="Добавить" HorizontalAlignment="Stretch"
 								HorizontalContentAlignment="Center"/>
 						<Button Name="buttonClear" Grid.Column="1" Content="Сброс" Command="{Binding ClearParam}" HorizontalAlignment="Stretch"
 								HorizontalContentAlignment="Center"/>

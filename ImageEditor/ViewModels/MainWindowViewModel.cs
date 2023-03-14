@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Reactive;
+using System.Xml.Linq;
 
 namespace ImageEditor.ViewModels
 {
@@ -38,11 +40,17 @@ namespace ImageEditor.ViewModels
             Shapes.Add(new Ellipse {Width = 50, Height = 60, Fill = new SolidColorBrush(Colors.Red), Margin = new Avalonia.Thickness(50, 0, 0, 0) });
             FigureList.Add(new LineElement { Name = "srt", EndPoint = "30, 30", StartPoint = "30, 30", StrokeColor = "Red", StrokeThickness = 1}) ;
             FigureList.Add(new PolylineElement { Name = "dfgd", Points = "234, 234, 234, 234", StrokeColor = "Black", StrokeThickness = 6 });
-            JsonSerializer<ObservableCollection<Figures>>.Save("data.txt", FigureList);
             FigureListIndex = -1;
             ClearParam = ReactiveCommand.Create(() =>  {
                 FigureListIndex = -1;
-                if (figureViews[figureIndex] is MenuLineViewModel) figureViews[figureIndex] = new MenuLineViewModel();
+                if (figureViews[figureIndex] is MenuLineViewModel newObject)
+                {
+                    newObject.Name = "";
+                    newObject.StartPoint = "";
+                    newObject.EndPoint = "";
+                    newObject.ItemNum = 0;
+                    newObject.ThicknessLine = 1;
+                }
                 if (figureViews[figureIndex] is MenuPolylineViewModel) figureViews[figureIndex] = new MenuPolylineViewModel();
                 if (figureViews[figureIndex] is MenuPolygonViewModel) figureViews[figureIndex] = new MenuPolygonViewModel();
                 if (figureViews[figureIndex] is MenuRectangleViewModel) figureViews[figureIndex] = new MenuRectangleViewModel();
