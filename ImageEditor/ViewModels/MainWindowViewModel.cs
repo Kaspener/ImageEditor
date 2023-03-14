@@ -27,20 +27,19 @@ namespace ImageEditor.ViewModels
         public MainWindowViewModel()
         {
             figureViews = new object[6];
-            figureViews[0] = new MenuLineViewModel();
+            FigureList = new ObservableCollection<Figures>();
+            Shapes = new ObservableCollection<Shape>();
+            FigureListIndex = -1;
+            figureViews[0] = new MenuLineViewModel(this);
             figureViews[1] = new MenuPolylineViewModel();
             figureViews[2] = new MenuPolygonViewModel();
             figureViews[3] = new MenuRectangleViewModel();
             figureViews[4] = new MenuEllipseViewModel();
             figureViews[5] = new MenuPathViewModel();
             FigureIndex = 0;
-            FigureList = new ObservableCollection<Figures>();
-            Shapes = new ObservableCollection<Shape>();
-            Shapes.Add(new Line { StartPoint = new Avalonia.Point(30, 30), EndPoint = new Avalonia.Point(3000, 300), Stroke = Converters.StringToBrush("Red"), StrokeThickness = 1 });
-            Shapes.Add(new Ellipse {Width = 50, Height = 60, Fill = new SolidColorBrush(Colors.Red), Margin = new Avalonia.Thickness(50, 0, 0, 0) });
-            FigureList.Add(new LineElement { Name = "srt", EndPoint = "30, 30", StartPoint = "30, 30", StrokeColor = "Red", StrokeThickness = 1}) ;
-            FigureList.Add(new PolylineElement { Name = "dfgd", Points = "234, 234, 234, 234", StrokeColor = "Black", StrokeThickness = 6 });
-            FigureListIndex = -1;
+            FigureList.Add(new LineElement { Name = "Line", EndPoint = "30, 30", StartPoint = "-16, 12", StrokeColor = "Red", StrokeThickness = 12}) ;
+            FigureList[0] = new LineElement { Name = "Line", EndPoint = "30, 30", StartPoint = "-16, 12", StrokeColor = "Red", StrokeThickness = 16 };
+            Shapes.Add(ElementToShape(FigureList[0]));
             ClearParam = ReactiveCommand.Create(() =>  {
                 FigureListIndex = -1;
                 if (figureViews[figureIndex] is MenuLineViewModel newObject)
@@ -48,7 +47,7 @@ namespace ImageEditor.ViewModels
                     newObject.Name = "";
                     newObject.StartPoint = "";
                     newObject.EndPoint = "";
-                    newObject.ItemNum = 0;
+                    newObject.StrokeNum = 0;
                     newObject.ThicknessLine = 1;
                 }
                 if (figureViews[figureIndex] is MenuPolylineViewModel) figureViews[figureIndex] = new MenuPolylineViewModel();
@@ -60,9 +59,16 @@ namespace ImageEditor.ViewModels
             });
         }
 
-        public Shape ElementToShape(Figures obj)
+        private Shape ElementToShape(Figures obj)
         {
-            if (obj is LineElement) return new Line {Name = obj.Name };
+            if (obj is LineElement line) return new Line
+            {
+                Name = line.Name,
+                StartPoint = Converters.StringToPoint(line.StartPoint),
+                EndPoint = Converters.StringToPoint(line.EndPoint),
+                Stroke = Converters.StringToBrush(line.StrokeColor),
+                StrokeThickness = line.StrokeThickness
+            };
             return null;
         }
 
@@ -83,7 +89,25 @@ namespace ImageEditor.ViewModels
         public int FigureListIndex
         {
             get => figureListIndex;
-            set => this.RaiseAndSetIfChanged(ref figureListIndex, value);
+            set 
+            {
+                this.RaiseAndSetIfChanged(ref figureListIndex, value);
+                if (figureListIndex != -1)
+                {
+                    if (FigureList[figureListIndex] is LineElement line)
+                    {
+                        FigureIndex = 0;
+                        if (Content is MenuLineViewModel cont)
+                        {
+                            cont.Name = line.Name;
+                            cont.StartPoint = line.StartPoint;
+                            cont.EndPoint = line.EndPoint;
+                            cont.SetIndexOfColor(Converters.StringToBrush(line.StrokeColor));
+                            cont.ThicknessLine = line.StrokeThickness;
+                        }
+                    }
+                }
+            }
         }
 
         public ObservableCollection<Figures> FigureList
@@ -97,7 +121,6 @@ namespace ImageEditor.ViewModels
             get => shapes;
             set => this.RaiseAndSetIfChanged(ref shapes, value);
         }
-
         public ReactiveCommand<Unit, Unit> ClearParam { get; }
     }
 }

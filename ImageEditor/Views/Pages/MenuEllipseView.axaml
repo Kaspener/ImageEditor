@@ -18,7 +18,7 @@
 			<Setter Property="Margin" Value="10"/>
 			<Setter Property="VerticalAlignment" Value="Center"/>
 		</Style>
-		<Style Selector="Rectangle">
+		<Style Selector="Rectangle.CRectangle">
 			<Setter Property="Width" Value="200"/>
 			<Setter Property="Height" Value="13"/>
 		</Style>
@@ -34,29 +34,22 @@
 		<TextBlock Grid.Row="3" Grid.Column="0" Text="Высота:"/>
 		<TextBox Name="textBoxHeight" Grid.Row="3" Grid.Column="1" Text=""/>
 		<TextBlock Grid.Row="4" Grid.Column="0" Text="Цвет линии:"/>
-		<ComboBox Name="comboBoxColor" Grid.Row="4" Grid.Column="1" SelectedIndex="0">
-			<Rectangle Fill="Black"/>
-			<Rectangle Fill="Red"/>
-			<Rectangle Fill="Blue"/>
-			<Rectangle Fill="Yellow"/>
-			<Rectangle Fill="Green"/>
-			<Rectangle Fill="Chartreuse"/>
-			<Rectangle Fill="Magenta"/>
-			<Rectangle Fill="Firebrick"/>
+		<ComboBox Grid.Row="4" Grid.Column="1" Name="comboBoxColor" Items="{Binding Colors}" SelectedIndex="{Binding StrokeNum}">
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<Rectangle Classes="CRectangle" Fill="{Binding}"/>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
 		</ComboBox>
 		<TextBlock Grid.Row="5" Grid.Column="0" Text="Толщина линии:"/>
 		<NumericUpDown Name="numericUpDownStroke" Grid.Row="5" Grid.Column="1" Minimum="1" Value="1" Width="218" Height="10"/>
 		<TextBlock Grid.Row="6" Grid.Column="0" Text="Цвет заливки:"/>
-		<ComboBox Name="comboBoxFillColor" Grid.Row="6" Grid.Column="1" SelectedIndex="0">
-			<Rectangle Fill="Black"/>
-			<Rectangle Fill="Red"/>
-			<Rectangle Fill="Blue"/>
-			<Rectangle Fill="Yellow"/>
-			<Rectangle Fill="Green"/>
-			<Rectangle Fill="Chartreuse"/>
-			<Rectangle Fill="Magenta"/>
-			<Rectangle Fill="Firebrick"/>
-			<Rectangle Fill="Transparent"/>
+		<ComboBox Grid.Row="6" Grid.Column="1" Name="comboBoxFillColor" Items="{Binding Colors}" SelectedIndex="{Binding FillNum}">
+			<ComboBox.ItemTemplate>
+				<DataTemplate>
+					<Rectangle Classes="CRectangle" Fill="{Binding}"/>
+				</DataTemplate>
+			</ComboBox.ItemTemplate>
 		</ComboBox>
 	</Grid>
 </UserControl>

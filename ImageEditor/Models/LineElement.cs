@@ -12,7 +12,7 @@ namespace ImageEditor.Models
         private string startPoint;
         private string endPoint;
         private string strokeColor;
-        private int strokeThickness;
+        private double strokeThickness;
 
 
         public string StartPoint
@@ -30,7 +30,7 @@ namespace ImageEditor.Models
             get => strokeColor;
             set => strokeColor = value;
         }
-        public int StrokeThickness
+        public double StrokeThickness
         {
             get => strokeThickness;
             set => strokeThickness = value;

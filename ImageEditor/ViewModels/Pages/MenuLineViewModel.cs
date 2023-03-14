@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ImageEditor.Models;
 using Avalonia.Controls.Shapes;
+using DynamicData;
 
 namespace ImageEditor.ViewModels.Pages
 {
@@ -17,25 +18,48 @@ namespace ImageEditor.ViewModels.Pages
         private string name;
         private string startPoint;
         private string endPoint;
-        private int itemNum;
-        private ObservableCollection<ISolidColorBrush> colors;
-        private int thicknessLine;
+        private int strokeNum;
+        private ObservableCollection<SolidColorBrush> colors;
+        private MainWindowViewModel mainWindow;
+        private double thicknessLine;
 
-        public MenuLineViewModel()
+        public MenuLineViewModel(MainWindowViewModel mainWindow)
         {
+            this.mainWindow = mainWindow;
             Name = "";
             StartPoint = "";
             EndPoint = "";
-            itemNum = 0;
+            StrokeNum = 0;
             ThicknessLine = 1;
-            var brushes = typeof(Brushes).GetProperties().Select(brush => (ISolidColorBrush)brush.GetValue(brush));
-            Colors = new ObservableCollection<ISolidColorBrush>(brushes.ToList());
+            Colors = new ObservableCollection<SolidColorBrush>();
+            var brushes = typeof(Brushes).GetProperties().Select(brush => brush.GetValue(brush));
+            foreach (object? el in brushes)
+            {
+                Colors.Add(Converters.StringToBrush(el.ToString()));
+            }
+
         }
 
+        public void SetIndexOfColor(SolidColorBrush color)
+        {
+            for(int i = 0; i < Colors.Count; i++)
+            {
+                if (Colors[i].Color == color.Color) { StrokeNum = i; break; }
+            }
+        }
         public string StartPoint
         {
             get => startPoint;
-            set => this.RaiseAndSetIfChanged(ref startPoint, value);
+            set {
+                this.RaiseAndSetIfChanged(ref startPoint, value);
+                if (mainWindow.FigureListIndex != -1)
+                {
+                    if (mainWindow.FigureList[mainWindow.FigureListIndex] is LineElement line)
+                    {
+                        mainWindow.FigureList[mainWindow.FigureListIndex] = new LineElement { Name = line.Name, StartPoint = value, EndPoint = line.EndPoint, StrokeColor = line.StrokeColor, StrokeThickness = line.StrokeThickness };
+                    }
+                }
+            }
         }
 
         public string EndPoint
@@ -43,7 +67,7 @@ namespace ImageEditor.ViewModels.Pages
             get => endPoint;
             set => this.RaiseAndSetIfChanged(ref endPoint, value);
         }
-        public int ThicknessLine
+        public double ThicknessLine
         {
             get => thicknessLine;
             set => this.RaiseAndSetIfChanged(ref thicknessLine, value);
@@ -53,13 +77,13 @@ namespace ImageEditor.ViewModels.Pages
             get => name;
             set => this.RaiseAndSetIfChanged(ref name, value);
         }
-        public int ItemNum
+        public int StrokeNum
         {
-            get => itemNum;
-            set => this.RaiseAndSetIfChanged(ref itemNum, value);
+            get => strokeNum;
+            set => this.RaiseAndSetIfChanged(ref strokeNum, value);
         }
 
-        public ObservableCollection<ISolidColorBrush> Colors
+        public ObservableCollection<SolidColorBrush> Colors
         {
             get => colors;
             set => this.RaiseAndSetIfChanged(ref colors, value);

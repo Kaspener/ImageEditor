@@ -18,5 +18,16 @@ namespace ImageEditor.Models
         {
             return new SolidColorBrush(Avalonia.Media.Color.Parse(str));
         }
+
+        public static string PointToString(Avalonia.Point p)
+        {
+            return p.ToString();
+        }
+
+        public static Avalonia.Point StringToPoint(string str)
+        {
+            string[] s = str.Split(",");
+            return new Avalonia.Point(double.Parse(s[0]), double.Parse(s[1]));
+        }
     }
 }
