@@ -34,6 +34,21 @@ namespace ImageEditor.ViewModels.Pages
             }
         }
 
+        public void SetIndexOfColor(SolidColorBrush color)
+        {
+            for (int i = 0; i < Colors.Count; i++)
+            {
+                if (Colors[i].Color == color.Color) { StrokeNum = i; break; }
+            }
+        }
+        public void SetIndexOfColorFill(SolidColorBrush color)
+        {
+            for (int i = 0; i < Colors.Count; i++)
+            {
+                if (Colors[i].Color == color.Color) { FillNum = i; break; }
+            }
+        }
+
         public string Points
         {
             get => points;

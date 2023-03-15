@@ -13,7 +13,7 @@ namespace ImageEditor.ViewModels.Pages
     public class MenuPathViewModel : ViewModelBase
     {
         private string name;
-        private string points;
+        private string commands;
         private int strokeNum;
         private int fillNum;
         private ObservableCollection<SolidColorBrush> colors;
@@ -22,7 +22,7 @@ namespace ImageEditor.ViewModels.Pages
         public MenuPathViewModel()
         {
             Name = "";
-            Points = "";
+            Commands = "";
             StrokeNum = 0;
             FillNum = 0;
             ThicknessLine = 1;
@@ -34,10 +34,25 @@ namespace ImageEditor.ViewModels.Pages
             }
         }
 
-        public string Points
+        public void SetIndexOfColor(SolidColorBrush color)
         {
-            get => points;
-            set => this.RaiseAndSetIfChanged(ref points, value);
+            for (int i = 0; i < Colors.Count; i++)
+            {
+                if (Colors[i].Color == color.Color) { StrokeNum = i; break; }
+            }
+        }
+        public void SetIndexOfColorFill(SolidColorBrush color)
+        {
+            for (int i = 0; i < Colors.Count; i++)
+            {
+                if (Colors[i].Color == color.Color) { FillNum = i; break; }
+            }
+        }
+
+        public string Commands
+        {
+            get => commands;
+            set => this.RaiseAndSetIfChanged(ref commands, value);
         }
         public double ThicknessLine
         {

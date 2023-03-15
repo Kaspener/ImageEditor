@@ -14,8 +14,8 @@ namespace ImageEditor.ViewModels.Pages
     {
         private string name;
         private string startPoint;
-        private int width;
-        private int height;
+        private string width;
+        private string height;
         private int strokeNum;
         private int fillNum;
         private ObservableCollection<SolidColorBrush> colors;
@@ -25,8 +25,8 @@ namespace ImageEditor.ViewModels.Pages
         {
             Name = "";
             StartPoint = "";
-            Width = 0;
-            Height = 0;
+            Width = "";
+            Height = "";
             FillNum = 0;
             StrokeNum = 0;
             ThicknessLine = 1;
@@ -35,6 +35,21 @@ namespace ImageEditor.ViewModels.Pages
             foreach (object? el in brushes)
             {
                 Colors.Add(Converters.StringToBrush(el.ToString()));
+            }
+        }
+
+        public void SetIndexOfColor(SolidColorBrush color)
+        {
+            for (int i = 0; i < Colors.Count; i++)
+            {
+                if (Colors[i].Color == color.Color) { StrokeNum = i; break; }
+            }
+        }
+        public void SetIndexOfColorFill(SolidColorBrush color)
+        {
+            for (int i = 0; i < Colors.Count; i++)
+            {
+                if (Colors[i].Color == color.Color) { FillNum = i; break; }
             }
         }
 
@@ -58,12 +73,12 @@ namespace ImageEditor.ViewModels.Pages
             get => strokeNum;
             set => this.RaiseAndSetIfChanged(ref strokeNum, value);
         }
-        public int Width
+        public string Width
         {
             get => width;
             set => this.RaiseAndSetIfChanged(ref width, value);
         }
-        public int Height
+        public string Height
         {
             get => height;
             set => this.RaiseAndSetIfChanged(ref height, value);

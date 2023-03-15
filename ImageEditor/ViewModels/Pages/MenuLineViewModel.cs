@@ -52,13 +52,6 @@ namespace ImageEditor.ViewModels.Pages
             get => startPoint;
             set {
                 this.RaiseAndSetIfChanged(ref startPoint, value);
-                if (mainWindow.FigureListIndex != -1)
-                {
-                    if (mainWindow.FigureList[mainWindow.FigureListIndex] is LineElement line)
-                    {
-                        mainWindow.FigureList[mainWindow.FigureListIndex] = new LineElement { Name = line.Name, StartPoint = value, EndPoint = line.EndPoint, StrokeColor = line.StrokeColor, StrokeThickness = line.StrokeThickness };
-                    }
-                }
             }
         }
 

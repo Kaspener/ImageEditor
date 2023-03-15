@@ -40,7 +40,7 @@
 					</ComboBox>
 					<ContentControl Grid.Row="1" Content="{Binding Content}"/>
 					<Grid Grid.Row="2" ColumnDefinitions="*, *">
-						<Button Name="buttonAdd" Grid.Column="0" Content="Добавить" HorizontalAlignment="Stretch"
+						<Button Name="buttonAdd" Grid.Column="0" Content="Добавить" Command="{Binding AddFigure}" HorizontalAlignment="Stretch"
 								HorizontalContentAlignment="Center"/>
 						<Button Name="buttonClear" Grid.Column="1" Content="Сброс" Command="{Binding ClearParam}" HorizontalAlignment="Stretch"
 								HorizontalContentAlignment="Center"/>
@@ -62,7 +62,7 @@
 						<DataTemplate>
 							<Grid ColumnDefinitions="*, 48">
 								<TextBlock Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-								<Button Name="buttonDeleteShape" Grid.Column="1">
+								<Button Name="buttonDeleteShape" Grid.Column="1" Click="DeleteShape">
 									<Image Source="/Assets/wastebasket.png"/>
 								</Button>
 							</Grid>

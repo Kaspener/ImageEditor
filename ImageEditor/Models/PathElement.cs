@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace ImageEditor.Models
 {
-    public class PolylineElement : Figures
+    public class PathElement : Figures
     {
-        private string points;
+        private string commands;
         private string strokeColor;
         private double strokeThickness;
+        private string fillColor;
 
-
-        public string Points
+        public string Commands
         {
-            get => points;
-            set => points = value;
+            get => commands;
+            set => commands = value;
         }
         public string StrokeColor
         {
@@ -27,6 +27,11 @@ namespace ImageEditor.Models
         {
             get => strokeThickness;
             set => strokeThickness = value;
+        }
+        public string FillColor
+        {
+            get => fillColor;
+            set => fillColor = value;
         }
     }
 }

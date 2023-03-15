@@ -26,9 +26,9 @@
 
 	<Grid RowDefinitions="30, 30, 50, 30, 50" ColumnDefinitions="*, 1.5*">
 		<TextBlock Grid.Row="0" Grid.Column="0" Text="Имя:"/>
-		<TextBox Name="textBoxName" Grid.Row="0" Grid.Column="1" Text=""/>
+		<TextBox Name="textBoxName" Grid.Row="0" Grid.Column="1" Text="{Binding Name}"/>
 		<TextBlock Grid.Row="1" Grid.Column="0" Text="Точки:"/>
-		<TextBox Name="textBoxPoints" Grid.Row="1" Grid.Column="1" Text=""/>
+		<TextBox Name="textBoxPoints" Grid.Row="1" Grid.Column="1" Text="{Binding Points}"/>
 		<TextBlock Grid.Row="2" Grid.Column="0" Text="Цвет линии:"/>
 		<ComboBox Grid.Row="2" Grid.Column="1" Name="comboBoxColor" Items="{Binding Colors}" SelectedIndex="{Binding StrokeNum}">
 			<ComboBox.ItemTemplate>
@@ -38,7 +38,7 @@
 			</ComboBox.ItemTemplate>
 		</ComboBox>
 		<TextBlock Grid.Row="3" Grid.Column="0" Text="Толщина линии:"/>
-		<NumericUpDown Name="numericUpDownStroke" Grid.Row="3" Grid.Column="1" Minimum="1" Value="1" Width="218" Height="10"/>
+		<NumericUpDown Name="numericUpDownStroke" Grid.Row="3" Grid.Column="1" Minimum="1" Value="{Binding ThicknessLine}" Width="218" Height="10"/>
 		<TextBlock Grid.Row="4" Grid.Column="0" Text="Цвет заливки:"/>
 		<ComboBox Grid.Row="4" Grid.Column="1" Name="comboBoxFillColor" Items="{Binding Colors}" SelectedIndex="{Binding FillNum}">
 			<ComboBox.ItemTemplate>
