@@ -20,12 +20,10 @@ namespace ImageEditor.ViewModels.Pages
         private string endPoint;
         private int strokeNum;
         private ObservableCollection<SolidColorBrush> colors;
-        private MainWindowViewModel mainWindow;
         private double thicknessLine;
 
-        public MenuLineViewModel(MainWindowViewModel mainWindow)
+        public MenuLineViewModel()
         {
-            this.mainWindow = mainWindow;
             Name = "";
             StartPoint = "";
             EndPoint = "";

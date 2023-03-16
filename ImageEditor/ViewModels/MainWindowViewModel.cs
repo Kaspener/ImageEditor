@@ -41,7 +41,7 @@ namespace ImageEditor.ViewModels
             FigureListIndex = -1;
             FigureList = new ObservableCollection<Figures>();
             Shapes = new ObservableCollection<Shape>();
-            figureViews[0] = new MenuLineViewModel(this);
+            figureViews[0] = new MenuLineViewModel();
             figureViews[1] = new MenuPolylineViewModel();
             figureViews[2] = new MenuPolygonViewModel();
             figureViews[3] = new MenuRectangleViewModel();
